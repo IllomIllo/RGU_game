@@ -24,7 +24,7 @@ public class CardMovementScr : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         DefaultParent = DefaultTempCardParent = transform.parent;
         IsDraggable = DefaultParent.GetComponent<DropPlaceScr>().Type == FieldType.SELF_HAND && GameManager.IsPlayerTurn;
 
-        if (IsDraggable == false)
+        if (!IsDraggable)
             return;
            
         
@@ -57,7 +57,7 @@ public class CardMovementScr : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public void OnEndDrag(PointerEventData eventData) 
     {
 
-        if (IsDraggable == false)
+        if (!IsDraggable)
             return;
        
         transform.SetParent(DefaultParent);
