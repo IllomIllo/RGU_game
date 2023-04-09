@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-public class CardScr : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
+public class CardMovementScr : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
     
     Camera MainCamera;
     Vector3 offset;
@@ -11,21 +11,23 @@ public class CardScr : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragH
     GameManagerScr GameManager;
     public bool IsDraggable;
 
-    void Awake() {
+    void Awake() 
+    {
         MainCamera = Camera.allCameras[0];
         TempCardGO = GameObject.Find("TempCardGo");
         GameManager = FindObjectOfType<GameManagerScr>();
     }
-    public void OnBeginDrag(PointerEventData eventData) {
+    public void OnBeginDrag(PointerEventData eventData) 
+    {
         offset = transform.position - MainCamera.ScreenToWorldPoint(eventData.position);
         
         DefaultParent = DefaultTempCardParent = transform.parent;
         IsDraggable = DefaultParent.GetComponent<DropPlaceScr>().Type == FieldType.SELF_HAND && GameManager.IsPlayerTurn;
-      
+
         if (IsDraggable == false)
-        {
             return;
-        }
+           
+        
 
         TempCardGO.transform.SetParent(DefaultParent);
         TempCardGO.transform.SetSiblingIndex(transform.GetSiblingIndex());
@@ -35,13 +37,12 @@ public class CardScr : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragH
         GetComponent<CanvasGroup>().blocksRaycasts = false;
   
     }
-    public void OnDrag(PointerEventData eventData) {
-        
+    public void OnDrag(PointerEventData eventData)
+    { 
         if (IsDraggable == false)
-        {
             return;
-        }
-       
+        
+
         Vector3 newPos = MainCamera.ScreenToWorldPoint(eventData.position);
         //newPos.z = 0;
         transform.position = newPos + offset;
@@ -55,10 +56,10 @@ public class CardScr : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragH
     }
     public void OnEndDrag(PointerEventData eventData) 
     {
+
         if (IsDraggable == false)
-        {
             return;
-        }
+       
         transform.SetParent(DefaultParent);
         GetComponent<CanvasGroup>().blocksRaycasts = true;
 
