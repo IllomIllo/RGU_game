@@ -536,9 +536,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyHand: {fileID: 813511168}
   PlayerHand: {fileID: 1787326579}
+  EnemyField: {fileID: 869932546}
+  PlayerField: {fileID: 175185562}
   CardPref: {fileID: 8659582980500690035, guid: 1444eb9f35ebf344fb846e8451d7097b, type: 3}
   TurnTimeTxt: {fileID: 1107782670}
   EndTurnBtn: {fileID: 1708441796}
+  PlayerHandCards: []
+  PlayerFieldCards: []
+  EnemyHandCards: []
+  EnemyFieldCards: []
 --- !u!1 &813511167
 GameObject:
   m_ObjectHideFlags: 0
@@ -1081,7 +1087,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 2247, y: -753}
+  m_AnchoredPosition: {x: 2458, y: -716}
   m_SizeDelta: {x: 186.6242, y: 247.2489}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1773139428
@@ -1098,6 +1104,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DefaultParent: {fileID: 0}
   DefaultTempCardParent: {fileID: 0}
+  GameManager: {fileID: 0}
   IsDraggable: 0
 --- !u!225 &1773139429
 CanvasGroup:

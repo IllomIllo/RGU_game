@@ -50,7 +50,9 @@ public class CardMovementScr : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if(TempCardGO.transform.parent != DefaultTempCardParent)
             TempCardGO.transform.SetParent(DefaultTempCardParent);
 
-        CheckPosition();
+
+        if (DefaultParent.GetComponent<DropPlaceScr>().Type !=FieldType.SELF_FIELD)
+            CheckPosition();
        
 
     }
