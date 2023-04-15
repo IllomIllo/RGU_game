@@ -3,7 +3,10 @@ guid: 1d130d57549816b44a6acde67c3e9d12
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - myFX: {instanceID: 0}
+  - hoverFx: {fileID: 8300000, guid: 91c62f9221bc76a4bbcd66c593ee8fd1, type: 3}
+  - clickFx: {fileID: 8300000, guid: 516dd344f17c814469b087963015c008, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
