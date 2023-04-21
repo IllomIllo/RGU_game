@@ -28,4 +28,3 @@ public class AttackedCard : MonoBehaviour, IDropHandler
 
 
 }
-//Исправлены ошибки!!!!!!
