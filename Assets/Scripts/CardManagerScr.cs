@@ -50,7 +50,10 @@ public class CardManagerScr : MonoBehaviour
     public void Awake()
     {
 <<<<<<< HEAD
+<<<<<<< Updated upstream
 <<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
 <<<<<<< Updated upstream
         CardManager.AllCards.Add(new Card("LD","Sprites/Cards/LD", 5, 4, 4));
         CardManager.AllCards.Add(new Card("Brother","Sprites/Cards/Brother", 5, 5, 3));
@@ -69,8 +72,11 @@ public class CardManagerScr : MonoBehaviour
         CardManager.AllCards.Add(new Card("Лаборант","Sprites/Cards/Laborant", 2, 4));
 >>>>>>> Stashed changes
 =======
+<<<<<<< Updated upstream
 =======
 >>>>>>> parent of 3002ef5 (Половина 4-го видоса)
+=======
+>>>>>>> Stashed changes
         CardManager.AllCards.Add(new Card("LD","Sprites/Cards/LD", 5, 4));
         CardManager.AllCards.Add(new Card("Brother","Sprites/Cards/Brother", 5, 5));
         CardManager.AllCards.Add(new Card("Decan","Sprites/Cards/Decan", 5, 3));
@@ -78,9 +84,12 @@ public class CardManagerScr : MonoBehaviour
         CardManager.AllCards.Add(new Card("Starosta","Sprites/Cards/Starosta", 2, 14));
         CardManager.AllCards.Add(new Card("Starshecursnik","Sprites/Cards/Starshecursnik", 1, 1));
         CardManager.AllCards.Add(new Card("Laborant","Sprites/Cards/Laborant", 2, 4));
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 >>>>>>> parent of 3002ef5 (Половина 4-го видоса)
 =======
+=======
+>>>>>>> Stashed changes
 >>>>>>> parent of 3002ef5 (Половина 4-го видоса)
     }
 }
