@@ -35,9 +35,6 @@ public class GameManagerScr : MonoBehaviour
     public TextMeshProUGUI TurnTimeTxt;
     public Button EndTurnBtn;
 
-    public int PlayerMana = 10, EnemyMana = 10;
-    public TextMeshProUGUI PlayerManaTxt, EnemyManaTxt;
-
     public List<CardInfoScr> PlayerHandCards = new List<CardInfoScr>(), PlayerFieldCards = new List<CardInfoScr>(), EnemyHandCards = new List<CardInfoScr>(), EnemyFieldCards = new List<CardInfoScr>();
 
     public bool IsPlayerTurn
@@ -55,8 +52,6 @@ public class GameManagerScr : MonoBehaviour
 
         GiveHandCards(CurrentGame.EnemyDeck, EnemyHand);
         GiveHandCards(CurrentGame.PlayerDeck, PlayerHand);
-
-        ShowMana();
 
         StartCoroutine(TurnFunc());
     }
@@ -146,18 +141,11 @@ public class GameManagerScr : MonoBehaviour
             if (EnemyFieldCards.Count > 5)
                 return;
 
-            List<CardInfoScr> cardsList = cards.FindAll(x => EnemyMana >= x.SelfCard.Manacost);
+            cards[0].ShowCardInfo(cards[0].SelfCard, false);
+            cards[0].transform.SetParent(EnemyField);
 
-            if (cardsList.Count == 0)
-                break;
-
-            ReduceMana(false, cardsList[0].SelfCard.Manacost);
-
-            cardsList[0].ShowCardInfo(cardsList[0].SelfCard, false);
-            cardsList[0].transform.SetParent(EnemyField);
-
-            EnemyFieldCards.Add(cardsList[0]);
-            EnemyHandCards.Remove(cardsList[0]);
+            EnemyFieldCards.Add(cards[0]);
+            EnemyHandCards.Remove(cards[0]);
         }
 
         foreach(var activeCard in EnemyFieldCards.FindAll(x => x.SelfCard.CanAttack))
@@ -183,13 +171,8 @@ public class GameManagerScr : MonoBehaviour
         EndTurnBtn.interactable = IsPlayerTurn;
 
         if (IsPlayerTurn)
-        {
             GiveNewCards();
 
-            PlayerMana = EnemyMana = 10;
-
-            ShowMana();
-        }
         StartCoroutine(TurnFunc());
     }
 
@@ -229,19 +212,4 @@ public class GameManagerScr : MonoBehaviour
         Destroy(card.gameObject);
     }
 
-    void ShowMana()
-    {
-        PlayerManaTxt.text = PlayerMana.ToString();
-        EnemyManaTxt.text = EnemyMana.ToString();
-    }
-
-    public void ReduceMana(bool playerMana, int manacost)
-    {
-        if (playerMana)
-            PlayerMana = Mathf.Clamp(PlayerMana - manacost, 0, int.MaxValue);
-        else
-            EnemyMana = Mathf.Clamp(EnemyMana - manacost, 0, int.MaxValue);
-
-        ShowMana();
-    }
 }
