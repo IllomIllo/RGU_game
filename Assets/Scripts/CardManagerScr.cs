@@ -7,7 +7,7 @@ public struct Card
 {
     public string Name;
     public Sprite Logo;
-    public int Attack, Defense;
+    public int Attack, Defense, Manacost;
     public bool CanAttack;
 
     public bool IsAlive
@@ -18,12 +18,13 @@ public struct Card
         }
     }
 
-    public Card(string name, string logoPath, int attack, int defense)
+    public Card(string name, string logoPath, int attack, int defense, int manacost)
     {
         Name = name;
         Logo = Resources.Load<Sprite>(logoPath);
         Attack = attack;
         Defense = defense;
+        Manacost = manacost;
         CanAttack = false;
     }
 
@@ -49,13 +50,13 @@ public class CardManagerScr : MonoBehaviour
     // список карт
     public void Awake()
     {
-        CardManager.AllCards.Add(new Card("LD","Sprites/Cards/LD", 5, 4));
-        CardManager.AllCards.Add(new Card("Brother","Sprites/Cards/Brother", 5, 5));
-        CardManager.AllCards.Add(new Card("Decan","Sprites/Cards/Decan", 5, 3));
-        CardManager.AllCards.Add(new Card("Otlichnik","Sprites/Cards/Otlichnik", 10, 5));
-        CardManager.AllCards.Add(new Card("Starosta","Sprites/Cards/Starosta", 2, 14));
-        CardManager.AllCards.Add(new Card("Starshecursnik","Sprites/Cards/Starshecursnik", 1, 1));
-        CardManager.AllCards.Add(new Card("Laborant","Sprites/Cards/Laborant", 2, 4));
+        CardManager.AllCards.Add(new Card("LD","Sprites/Cards/LD", 5, 4, 4));
+        CardManager.AllCards.Add(new Card("Brother","Sprites/Cards/Brother", 5, 5, 3));
+        CardManager.AllCards.Add(new Card("Decan","Sprites/Cards/Decan", 9, 5, 7));
+        CardManager.AllCards.Add(new Card("Otlichnik","Sprites/Cards/Otlichnik", 1, 5, 2));
+        CardManager.AllCards.Add(new Card("Starosta","Sprites/Cards/Starosta", 2, 14, 5));
+        CardManager.AllCards.Add(new Card("Starshecursnik","Sprites/Cards/Starshecursnik", 1, 1, 1));
+        CardManager.AllCards.Add(new Card("Laborant","Sprites/Cards/Laborant", 2, 4, 2));
     }
 }
    
