@@ -19,7 +19,7 @@ public class Game
     List<Card> GiveDeckCard()
     {
         List<Card> list = new List<Card>();
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 35; i++)
             list.Add(CardManager.AllCards[Random.Range(0, CardManager.AllCards.Count)]);
         return list;
     }
@@ -38,6 +38,12 @@ public class GameManagerScr : MonoBehaviour
     public int PlayerMana = 10, EnemyMana = 10;
     public TextMeshProUGUI PlayerManaTxt, EnemyManaTxt;
 
+    public int PlayerHP, EnemyHP;
+    public TextMeshProUGUI PlayerHPTxt, EnemyHPTxt;
+
+    public GameObject ResultGO;
+    public TextMeshProUGUI ResultTxt;
+
     public List<CardInfoScr> PlayerHandCards = new List<CardInfoScr>(), PlayerFieldCards = new List<CardInfoScr>(), EnemyHandCards = new List<CardInfoScr>(), EnemyFieldCards = new List<CardInfoScr>();
 
     public bool IsPlayerTurn
@@ -55,6 +61,8 @@ public class GameManagerScr : MonoBehaviour
 
         GiveHandCards(CurrentGame.EnemyDeck, EnemyHand);
         GiveHandCards(CurrentGame.PlayerDeck, PlayerHand);
+
+        PlayerHP = EnemyHP = 30;
 
         ShowMana();
 
@@ -162,16 +170,28 @@ public class GameManagerScr : MonoBehaviour
 
         foreach(var activeCard in EnemyFieldCards.FindAll(x => x.SelfCard.CanAttack))
         {
-            if (PlayerFieldCards.Count == 0)
-                return;
+            if (Random.Range(0, 2) == 0 &&
+                PlayerFieldCards.Count > 0)
+            {
 
-            var enemy = PlayerFieldCards[Random.Range(0, PlayerFieldCards.Count)];
+                var enemy = PlayerFieldCards[Random.Range(0, PlayerFieldCards.Count)];
 
-            Debug.Log(activeCard.SelfCard.Name + " (" + activeCard.SelfCard.Attack + ";" + activeCard.SelfCard.Defense + ") " + "--->" + 
-                      enemy.SelfCard.Name + " (" + enemy.SelfCard.Attack + ";" + enemy.SelfCard.Defense + ") ");
+                Debug.Log(activeCard.SelfCard.Name + " (" + activeCard.SelfCard.Attack + ";" + activeCard.SelfCard.Defense + ") " + "--->" +
+                          enemy.SelfCard.Name + " (" + enemy.SelfCard.Attack + ";" + enemy.SelfCard.Defense + ") ");
 
-            activeCard.SelfCard.ChangeAttackState(false);
-            CardsFight(enemy, activeCard);
+                activeCard.SelfCard.ChangeAttackState(false);
+                CardsFight(enemy, activeCard);
+            }
+            else
+            {
+                Debug.Log(activeCard.SelfCard.Name + " (" + activeCard.SelfCard.Attack + ") Attacked Hero");
+
+                activeCard.SelfCard.ChangeAttackState(false);
+                DamageHero(activeCard, false);
+
+            }
+
+
         }
     }
 
@@ -235,6 +255,12 @@ public class GameManagerScr : MonoBehaviour
         EnemyManaTxt.text = EnemyMana.ToString();
     }
 
+    void ShowHp()
+    {
+        EnemyHPTxt.text = EnemyHP.ToString();
+        PlayerHPTxt.text = PlayerHP.ToString();
+    }
+
     public void ReduceMana(bool playerMana, int manacost)
     {
         if (playerMana)
@@ -243,5 +269,34 @@ public class GameManagerScr : MonoBehaviour
             EnemyMana = Mathf.Clamp(EnemyMana - manacost, 0, int.MaxValue);
 
         ShowMana();
+    }
+
+    public void DamageHero(CardInfoScr card, bool isEnemyAttacked)
+    {
+        if (isEnemyAttacked)
+            EnemyHP = Mathf.Clamp(EnemyHP - card.SelfCard.Attack, 0, int.MaxValue);
+        else
+            PlayerHP = Mathf.Clamp(PlayerHP - card.SelfCard.Attack, 0, int.MaxValue);
+
+        ShowHp();
+        card.DeHighlightCard();
+        CheckForResult();
+    }
+
+    void CheckForResult()
+    {
+        if (EnemyHP == 0 || PlayerHP == 0)
+        {
+            ResultGO.SetActive(true);
+
+            StopAllCoroutines();
+
+            if (EnemyHP == 0)
+                ResultTxt.text = "WIN gratz";
+            else
+                ResultTxt.text = "Отчислен";
+        }
+
+        
     }
 }

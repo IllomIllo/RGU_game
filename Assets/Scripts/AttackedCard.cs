@@ -31,4 +31,5 @@ public class AttackedCard : MonoBehaviour, IDropHandler
 
 
 }
-//??????
+//2222
+//213131321
