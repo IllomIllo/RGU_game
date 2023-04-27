@@ -65,7 +65,7 @@ public class CardInfoScr : MonoBehaviour
     public void HighlightAsTarget(bool highlight)
     {
         GetComponent<Image>().color = highlight ?
-                                      TargetCol :
+                                      TargetCol:
                                       NormalCol;
     }
 }

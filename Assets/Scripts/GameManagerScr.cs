@@ -137,10 +137,9 @@ public class GameManagerScr : MonoBehaviour
     {
         TurnTime = 30;
         TurnTimeTxt.text = TurnTime.ToString();
+
         foreach (var card in PlayerHandCards)
-        {
             card.DeHighlightCard();
-        }
 
         CheckCardsForAvaliability();
 
