@@ -44,6 +44,8 @@ public class GameManagerScr : MonoBehaviour
     public GameObject ResultGO;
     public TextMeshProUGUI ResultTxt;
 
+    public AttackedHero EnemyHero, PlayerHero;
+
     public List<CardInfoScr> PlayerHandCards = new List<CardInfoScr>(), PlayerFieldCards = new List<CardInfoScr>(), EnemyHandCards = new List<CardInfoScr>(), EnemyFieldCards = new List<CardInfoScr>();
 
     public bool IsPlayerTurn
@@ -54,19 +56,51 @@ public class GameManagerScr : MonoBehaviour
         }
     }
 
-    void Start()
+    public void StartGame()
     {
         Turn = 0;
+        EndTurnBtn.interactable = true;
+
         CurrentGame = new Game();
 
         GiveHandCards(CurrentGame.EnemyDeck, EnemyHand);
         GiveHandCards(CurrentGame.PlayerDeck, PlayerHand);
 
+        PlayerMana = EnemyMana = 10;
         PlayerHP = EnemyHP = 30;
 
+        ShowHp();
         ShowMana();
 
+        ResultGO.SetActive(false);
+
         StartCoroutine(TurnFunc());
+    }
+
+    public void RestartGame()
+    {
+        StopAllCoroutines();
+
+        foreach (var card in PlayerHandCards)
+            Destroy(card.gameObject);
+        foreach (var card in PlayerFieldCards)
+            Destroy(card.gameObject);
+        foreach (var card in EnemyHandCards)
+            Destroy(card.gameObject);
+        foreach (var card in EnemyFieldCards)
+            Destroy(card.gameObject);
+
+        PlayerHandCards.Clear();
+        PlayerFieldCards.Clear();
+        EnemyHandCards.Clear();
+        EnemyFieldCards.Clear();
+
+        StartGame();
+    }
+
+    void Start()
+    {
+        StartGame();
     }
 
     void GiveHandCards(List<Card> deck, Transform hand)
@@ -108,6 +142,8 @@ public class GameManagerScr : MonoBehaviour
             card.DeHighlightCard();
         }
 
+        CheckCardsForAvaliability();
+
         if(IsPlayerTurn)
         {
             foreach (var card in PlayerFieldCards)
@@ -122,44 +158,43 @@ public class GameManagerScr : MonoBehaviour
                 TurnTimeTxt.text = TurnTime.ToString();
                 yield return new WaitForSeconds(1);
             }
+
+            ChangeTurn();
         }
         else
         {
             foreach (var card in EnemyFieldCards)
                 card.SelfCard.ChangeAttackState(true);
 
-            while (TurnTime-- > 27)
-            {
-                TurnTimeTxt.text = TurnTime.ToString();
-                yield return new WaitForSeconds(1);
-            }
-
-            if (EnemyHandCards.Count > 0)
-                EnemyTurn(EnemyHandCards);
+            StartCoroutine(EnemyTurn(EnemyHandCards));
             
         }
-        ChangeTurn(); 
-
-
     }
 
-    void EnemyTurn(List<CardInfoScr> cards)
+    IEnumerator EnemyTurn(List<CardInfoScr> cards)
     {
+        yield return new WaitForSeconds(1);
         int count = cards.Count == 1 ? 1:
                 Random.Range(0, cards.Count);
         
 
         for (int i = 0; i < count; i++)
         {
-            if (EnemyFieldCards.Count > 5)
-                return;
+            if (EnemyFieldCards.Count > 5 ||
+                EnemyMana == 0 ||
+                EnemyHandCards.Count ==0)
+                break;
 
             List<CardInfoScr> cardsList = cards.FindAll(x => EnemyMana >= x.SelfCard.Manacost);
 
             if (cardsList.Count == 0)
                 break;
 
+            cardsList[0].GetComponent<CardMovementScr>().MoveToField(EnemyField);
+
             ReduceMana(false, cardsList[0].SelfCard.Manacost);
+
+            yield return new WaitForSeconds(.51f);
 
             cardsList[0].ShowCardInfo(cardsList[0].SelfCard, false);
             cardsList[0].transform.SetParent(EnemyField);
@@ -167,6 +202,8 @@ public class GameManagerScr : MonoBehaviour
             EnemyFieldCards.Add(cardsList[0]);
             EnemyHandCards.Remove(cardsList[0]);
         }
+
+        yield return new WaitForSeconds(1);
 
         foreach(var activeCard in EnemyFieldCards.FindAll(x => x.SelfCard.CanAttack))
         {
@@ -180,6 +217,10 @@ public class GameManagerScr : MonoBehaviour
                           enemy.SelfCard.Name + " (" + enemy.SelfCard.Attack + ";" + enemy.SelfCard.Defense + ") ");
 
                 activeCard.SelfCard.ChangeAttackState(false);
+
+                activeCard.GetComponent<CardMovementScr>().MoveToTarget(enemy.transform);
+                yield return new WaitForSeconds(.75f);
+
                 CardsFight(enemy, activeCard);
             }
             else
@@ -187,12 +228,19 @@ public class GameManagerScr : MonoBehaviour
                 Debug.Log(activeCard.SelfCard.Name + " (" + activeCard.SelfCard.Attack + ") Attacked Hero");
 
                 activeCard.SelfCard.ChangeAttackState(false);
+
+                activeCard.GetComponent<CardMovementScr>().MoveToTarget(PlayerHero.transform);
+                yield return new WaitForSeconds(.75f);
+
                 DamageHero(activeCard, false);
 
             }
 
-
+            yield return new WaitForSeconds(.2f);
         }
+
+        yield return new WaitForSeconds(1);
+        ChangeTurn();
     }
 
     public void ChangeTurn()
@@ -294,9 +342,23 @@ public class GameManagerScr : MonoBehaviour
             if (EnemyHP == 0)
                 ResultTxt.text = "WIN gratz";
             else
-                ResultTxt.text = "Отчислен";
+                ResultTxt.text = "-25";
         }
 
         
+    }
+
+    public void CheckCardsForAvaliability()
+    {
+        foreach (var card in PlayerHandCards)
+            card.CheckForAvailability(PlayerMana);
+    }
+
+    public void HighlightTargets(bool highlight)
+    {
+        foreach (var card in EnemyFieldCards)
+            card.HighlightAsTarget(highlight);
+
+        EnemyHero.HighlightAsTarget(highlight);
     }
 }
