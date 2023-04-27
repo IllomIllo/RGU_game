@@ -911,7 +911,7 @@ MonoBehaviour:
   HideObj: {fileID: 3594551332330949466}
   HighlightedObj: {fileID: 5509607924269694876}
   IsPlayer: 0
-  NormalCol: {r: 0, g: 0.2905326, b: 1, a: 1}
+  NormalCol: {r: 0.745283, g: 0.745283, b: 0.745283, a: 0}
   TargetCol: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &7630786096843544055
 MonoBehaviour:
