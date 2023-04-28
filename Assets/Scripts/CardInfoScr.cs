@@ -6,58 +6,46 @@ using TMPro;
 
 public class CardInfoScr : MonoBehaviour
 {
-    public Card SelfCard;
+    public CardController CC;
     public Image Logo;
     public TextMeshProUGUI Name, Attack, Defense, Manacost;
     public GameObject HideObj, HighlightedObj;
-    public bool IsPlayer;
     public Color NormalCol, TargetCol;
 
-    public void HideCardInfo(Card card)
+    public void HideCardInfo()
     {
-       SelfCard = card;
        HideObj.SetActive(true);
-       IsPlayer = false;
-        Manacost.text = "";
+       Manacost.text = "";
        
     }
 
-    public void ShowCardInfo(Card card, bool isPlayer)
+    public void ShowCardInfo()
     {
-        IsPlayer = isPlayer;
         HideObj.SetActive(false);
-        SelfCard = card;
 
-        Logo.sprite = card.Logo;
+        Logo.sprite = CC.Card.Logo;
         Logo.preserveAspect = true;
-        Name.text = card.Name;
+        Name.text = CC.Card.Name;
 
-        Attack.text = SelfCard.Attack.ToString();
-        Defense.text = SelfCard.Defense.ToString();
-        Manacost.text= SelfCard.Manacost.ToString();
+        RefreshData();
 
     }
 
     public void RefreshData()
     {
-        Attack.text = SelfCard.Attack.ToString();
-        Defense.text = SelfCard.Defense.ToString();
-        Manacost.text = SelfCard.Manacost.ToString();
+        Attack.text = CC.Card.Attack.ToString();
+        Defense.text = CC.Card.Defense.ToString();
+        Manacost.text = CC.Card.Manacost.ToString();
     }
 
-    public void HighlightCard()
+    public void HighlightCard(bool highlight)
     {
-        HighlightedObj.SetActive(true);
+        HighlightedObj.SetActive(highlight);
     }
 
-    public void DeHighlightCard()
+    public void HighlightManaAvaliability(int currentMana)
     {
-        HighlightedObj.SetActive(false);
-    }
-
-    public void CheckForAvailability(int currentMana)
-    {
-        GetComponent<CanvasGroup>().alpha = currentMana >= SelfCard.Manacost ?
+        GetComponent<CanvasGroup>().alpha = currentMana >= CC.Card.Manacost ?
                                             1 :
                                             .5f;
     }

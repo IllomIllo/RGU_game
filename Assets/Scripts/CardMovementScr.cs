@@ -6,40 +6,42 @@ using DG.Tweening;
 using UnityEngine.UI;
 
 public class CardMovementScr : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
-    
+
+    public CardController CC;
+
     Camera MainCamera;
     Vector3 offset;
     public Transform DefaultParent, DefaultTempCardParent;
     GameObject TempCardGO;
-    public GameManagerScr GameManager;
     public bool IsDraggable;
 
-    void Awake() 
+    void Awake()
     {
         MainCamera = Camera.allCameras[0];
         TempCardGO = GameObject.Find("TempCardGo");
-        GameManager = FindObjectOfType<GameManagerScr>();
     }
+
+    
     public void OnBeginDrag(PointerEventData eventData) 
     {
         offset = transform.position - MainCamera.ScreenToWorldPoint(eventData.position);
         
         DefaultParent = DefaultTempCardParent = transform.parent;
 
-        IsDraggable = GameManager.IsPlayerTurn &&
+        IsDraggable = GameManagerScr.Instance.IsPlayerTurn &&
                       (
                       (DefaultParent.GetComponent<DropPlaceScr>().Type == FieldType.SELF_HAND &&
-                      GameManager.PlayerMana >= GetComponent<CardInfoScr>().SelfCard.Manacost) ||
+                      GameManagerScr.Instance.PlayerMana >= CC.Card.Manacost) ||
                       (DefaultParent.GetComponent<DropPlaceScr>().Type == FieldType.SELF_FIELD &&
-                      GetComponent<CardInfoScr>().SelfCard.CanAttack)
+                      CC.Card.CanAttack)
                       );
 
         if (!IsDraggable)
             return;
 
 
-        if (GetComponent<CardInfoScr>().SelfCard.CanAttack)
-            GameManager.HighlightTargets(true);
+        if (CC.Card.CanAttack)
+            GameManagerScr.Instance.HighlightTargets(true);
         
 
 
@@ -51,6 +53,8 @@ public class CardMovementScr : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         GetComponent<CanvasGroup>().blocksRaycasts = false;
   
     }
+
+
     public void OnDrag(PointerEventData eventData)
     { 
         if (IsDraggable == false)
@@ -70,13 +74,15 @@ public class CardMovementScr : MonoBehaviour, IBeginDragHandler, IDragHandler, I
        
 
     }
+
+
     public void OnEndDrag(PointerEventData eventData) 
     {
 
         if (!IsDraggable)
             return;
 
-        GameManager.HighlightTargets(false);
+        GameManagerScr.Instance.HighlightTargets(false);
        
         transform.SetParent(DefaultParent);
         GetComponent<CanvasGroup>().blocksRaycasts = true;

@@ -788,8 +788,9 @@ GameObject:
   - component: {fileID: 884869366034750839}
   - component: {fileID: 7103661917785437526}
   - component: {fileID: 3450972432320850506}
-  - component: {fileID: -65751444192582507}
+  - component: {fileID: -5973818842602243011}
   - component: {fileID: 4555397957690167216}
+  - component: {fileID: -65751444192582507}
   - component: {fileID: 7630786096843544055}
   m_Layer: 5
   m_Name: 'CardPref  '
@@ -875,7 +876,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &-65751444192582507
+--- !u!114 &-5973818842602243011
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -884,13 +885,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 8659582980500690035}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b874af79b64e144a95703175d5d5d8c, type: 3}
+  m_Script: {fileID: 11500000, guid: c50fbec6fa66746cababa01b218780ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DefaultParent: {fileID: 0}
-  DefaultTempCardParent: {fileID: 0}
-  GameManager: {fileID: 0}
-  IsDraggable: 0
+  IsPlayerCard: 0
+  Info: {fileID: 4555397957690167216}
+  Movement: {fileID: -65751444192582507}
 --- !u!114 &4555397957690167216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -903,6 +903,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bc1bb0b65f58bb49b52600f1528bf20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CC: {fileID: -5973818842602243011}
   Logo: {fileID: 5684230888065850392}
   Name: {fileID: 2489325208677122812}
   Attack: {fileID: 8190615499241081974}
@@ -910,9 +911,24 @@ MonoBehaviour:
   Manacost: {fileID: 7703151956263853829}
   HideObj: {fileID: 3594551332330949466}
   HighlightedObj: {fileID: 5509607924269694876}
-  IsPlayer: 0
   NormalCol: {r: 0.7372549, g: 0.60784316, b: 0.60784316, a: 1}
   TargetCol: {r: 1, g: 0, b: 0, a: 1}
+--- !u!114 &-65751444192582507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8659582980500690035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b874af79b64e144a95703175d5d5d8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CC: {fileID: -5973818842602243011}
+  DefaultParent: {fileID: 0}
+  DefaultTempCardParent: {fileID: 0}
+  IsDraggable: 0
 --- !u!114 &7630786096843544055
 MonoBehaviour:
   m_ObjectHideFlags: 0
