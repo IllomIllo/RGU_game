@@ -71,7 +71,7 @@ public class CardAbility : MonoBehaviour
 
 
                 case Card.AbilityType.COUNTER_ATTACK:
-
+                     
                     if (attacker != null)
                         attacker.Card.GetDamage(CC.Card.Attack);
 

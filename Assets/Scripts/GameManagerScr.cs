@@ -176,7 +176,7 @@ public class GameManagerScr : MonoBehaviour
             foreach (var card in EnemyFieldCards)
             {
                 card.Card.CanAttack = true;
-                card.Ability.OnNewTurn();
+                card.Ability.OnNewTurn(); 
             }
 
             StartCoroutine(EnemyTurn(EnemyHandCards));
@@ -233,6 +233,8 @@ public class GameManagerScr : MonoBehaviour
                 Debug.Log(activeCard.Card.Name + " (" + activeCard.Card.Attack + ";" + activeCard.Card.Defense + ") " + "--->" +
                           enemy.Card.Name + " (" + enemy.Card.Attack + ";" + enemy.Card.Defense + ") ");
 
+                //activeCard.Card.CanAttack = false;
+
                 activeCard.Movement.MoveToTarget(enemy.transform);
                 yield return new WaitForSeconds(.75f);
 
@@ -241,6 +243,8 @@ public class GameManagerScr : MonoBehaviour
             else
             {
                 Debug.Log(activeCard.Card.Name + " (" + activeCard.Card.Attack + ") Attacked Hero");
+
+                //activeCard.Card.CanAttack = false    ----12:44----
 
                 activeCard.GetComponent<CardMovementScr>().MoveToTarget(PlayerHero.transform);
                 yield return new WaitForSeconds(.75f);
