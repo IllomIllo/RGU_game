@@ -25,7 +25,8 @@ public class AttackedHero : MonoBehaviour, IDropHandler
 
         if(card &&
            card.Card.CanAttack &&
-           Type == HeroType.ENEMY)
+           Type == HeroType.ENEMY &&
+           !GameManagerScr.Instance.EnemyFieldCards.Exists(x => x.Card.IsProvacation))
         {
             GameManagerScr.Instance.DamageHero(card, true);
         }

@@ -153,13 +153,14 @@ public class GameManagerScr : MonoBehaviour
 
         CheckCardsForManaAvaliability();
 
-        if(IsPlayerTurn)
+        if (IsPlayerTurn)
         {
             foreach (var card in PlayerFieldCards)
             {
 
                 card.Card.CanAttack = true;
                 card.Info.HighlightCard(true);
+                card.Ability.OnNewTurn();
             }
 
             while(TurnTime-- > 0)
@@ -173,7 +174,10 @@ public class GameManagerScr : MonoBehaviour
         else
         {
             foreach (var card in EnemyFieldCards)
-                card.Card.CanAttack = true; 
+            {
+                card.Card.CanAttack = true;
+                card.Ability.OnNewTurn();
+            }
 
             StartCoroutine(EnemyTurn(EnemyHandCards));
             
@@ -203,7 +207,6 @@ public class GameManagerScr : MonoBehaviour
 
             yield return new WaitForSeconds(.51f);
 
-            cardsList[0].Info.ShowCardInfo();
             cardsList[0].transform.SetParent(EnemyField);
 
             cardsList[0].OnCast();
@@ -211,20 +214,26 @@ public class GameManagerScr : MonoBehaviour
 
         yield return new WaitForSeconds(1);
 
-        foreach(var activeCard in EnemyFieldCards.FindAll(x => x.Card.CanAttack))
+        while(EnemyFieldCards.Exists(x => x.Card.CanAttack))
         {
-            if (Random.Range(0, 2) == 0 &&
+            var activeCard = EnemyFieldCards.FindAll(x => x.Card.CanAttack)[0];
+            bool hasProvacation = PlayerFieldCards.Exists(x => x.Card.IsProvacation);
+
+            if (hasProvacation ||
+                Random.Range(0, 2) == 0 &&
                 PlayerFieldCards.Count > 0)
             {
+                CardController enemy;
 
-                var enemy = PlayerFieldCards[Random.Range(0, PlayerFieldCards.Count)];
+                if (hasProvacation)
+                    enemy = PlayerFieldCards.Find(x => x.Card.IsProvacation);
+                else
+                    enemy = PlayerFieldCards[Random.Range(0, PlayerFieldCards.Count)];
 
                 Debug.Log(activeCard.Card.Name + " (" + activeCard.Card.Attack + ";" + activeCard.Card.Defense + ") " + "--->" +
                           enemy.Card.Name + " (" + enemy.Card.Attack + ";" + enemy.Card.Defense + ") ");
 
-                activeCard.Card.CanAttack = false;
-
-                activeCard.GetComponent<CardMovementScr>().MoveToTarget(enemy.transform);
+                activeCard.Movement.MoveToTarget(enemy.transform);
                 yield return new WaitForSeconds(.75f);
 
                 CardsFight(enemy, activeCard);
@@ -232,8 +241,6 @@ public class GameManagerScr : MonoBehaviour
             else
             {
                 Debug.Log(activeCard.Card.Name + " (" + activeCard.Card.Attack + ") Attacked Hero");
-
-                activeCard.Card.CanAttack = false;
 
                 activeCard.GetComponent<CardMovementScr>().MoveToTarget(PlayerHero.transform);
                 yield return new WaitForSeconds(.75f);
@@ -345,9 +352,18 @@ public class GameManagerScr : MonoBehaviour
 
     public void HighlightTargets(bool highlight)
     {
-        foreach (var card in EnemyFieldCards)
-            card.Info.HighlightAsTarget(highlight);
+        List<CardController> targets = new List<CardController>();
 
-        EnemyHero.HighlightAsTarget(highlight);
+        if (EnemyFieldCards.Exists(x => x.Card.IsProvacation))
+            targets = EnemyFieldCards.FindAll(x => x.Card.IsProvacation);
+        else
+        {
+            targets = EnemyFieldCards;
+            EnemyHero.HighlightAsTarget(highlight);
+        }
+
+        foreach (var card in targets)
+            card.Info.HighlightAsTarget(highlight);
     }
 }
+//11:55
