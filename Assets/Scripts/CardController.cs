@@ -10,6 +10,7 @@ public class CardController : MonoBehaviour
 
     public CardInfoScr Info;
     public CardMovementScr Movement;
+    public CardAbility Ability;
 
     GameManagerScr gameManager;
 
@@ -42,20 +43,29 @@ public class CardController : MonoBehaviour
             gameManager.EnemyHandCards.Remove(this);
             gameManager.EnemyFieldCards.Add(this);
             gameManager.ReduceMana(false, Card.Manacost);
+            Info.ShowCardInfo();
         }
 
         Card.IsPlaced = true;
+
+        if (Card.HasAbility)
+            Ability.OnCast();
     }
 
     public void OnTakeDamage(CardController attacker = null)
     {
         CheckForAlive();
+        Ability.OnDamageTake(attacker);
     }
 
     public void OnDamageDeal()
     {
+        Card.TimesDealedDamage++;
         Card.CanAttack = false;
         Info.HighlightCard(false);
+
+        if (Card.HasAbility)
+            Ability.OnDamageDeal();
     }
 
     public void CheckForAlive()

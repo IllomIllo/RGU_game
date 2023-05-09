@@ -17,6 +17,10 @@ public class AttackedCard : MonoBehaviour, IDropHandler
             attacker.Card.CanAttack && 
             defender.Card.IsPlaced)
         {
+            if (GameManagerScr.Instance.EnemyFieldCards.Exists(x => x.Card.IsProvacation) &&
+                !defender.Card.IsProvacation)
+                return;
+
             GameManagerScr.Instance.CardsFight(attacker, defender);
         }
     }
