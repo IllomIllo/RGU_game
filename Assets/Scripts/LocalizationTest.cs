@@ -11,4 +11,5 @@ public class LocalizationTest : MonoBehaviour
     {
         text.Localize("Test2_key");
     }
+
 }
