@@ -341,6 +341,7 @@ GameObject:
   - component: {fileID: 272541994}
   - component: {fileID: 272541993}
   - component: {fileID: 272541995}
+  - component: {fileID: 272541996}
   m_Layer: 5
   m_Name: EnemyHero
   m_TagString: Untagged
@@ -421,9 +422,72 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 0
-  GameManager: {fileID: 519420034}
   NormalCol: {r: 0.5566038, g: 0.5067195, b: 0.5067195, a: 1}
   TargetCol: {r: 1, g: 0, b: 0, a: 1}
+--- !u!114 &272541996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272541991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6eeeb6eb68663248ba2926b4510672c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &368954655
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 368954657}
+  - component: {fileID: 368954656}
+  m_Layer: 0
+  m_Name: UIController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &368954656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 368954655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf3981b5863f52a4982d3e422b1d678c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerMana: {fileID: 471560326}
+  EnemyMana: {fileID: 1831812174}
+  PlayerHP: {fileID: 972744999}
+  EnemyHP: {fileID: 1455605432}
+  ResultGO: {fileID: 448355461}
+  ResultTxt: {fileID: 1356439469}
+  TurnTime: {fileID: 1107782670}
+  EndTurnBtn: {fileID: 1708441796}
+--- !u!4 &368954657
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 368954655}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &411724303
 GameObject:
   m_ObjectHideFlags: 0
@@ -519,7 +583,7 @@ RectTransform:
   - {fileID: 1773139427}
   - {fileID: 48578247}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -930,20 +994,9 @@ MonoBehaviour:
   EnemyField: {fileID: 869932546}
   PlayerField: {fileID: 175185562}
   CardPref: {fileID: 8659582980500690035, guid: 1444eb9f35ebf344fb846e8451d7097b, type: 3}
-  TurnTimeTxt: {fileID: 1107782670}
-  EndTurnBtn: {fileID: 1708441796}
-  PlayerMana: 10
-  EnemyMana: 10
-  PlayerManaTxt: {fileID: 471560326}
-  EnemyManaTxt: {fileID: 1831812174}
-  PlayerHP: 0
-  EnemyHP: 0
-  PlayerHPTxt: {fileID: 972744999}
-  EnemyHPTxt: {fileID: 1455605432}
-  ResultGO: {fileID: 448355461}
-  ResultTxt: {fileID: 1356439469}
   EnemyHero: {fileID: 272541995}
   PlayerHero: {fileID: 820026779}
+  EnemyAI: {fileID: 272541996}
   PlayerHandCards: []
   PlayerFieldCards: []
   EnemyHandCards: []
@@ -1156,7 +1209,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 0
-  GameManager: {fileID: 519420034}
   NormalCol: {r: 0, g: 0, b: 0, a: 0}
   TargetCol: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &869932545
@@ -2410,9 +2462,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b874af79b64e144a95703175d5d5d8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CC: {fileID: 0}
   DefaultParent: {fileID: 0}
   DefaultTempCardParent: {fileID: 0}
-  GameManager: {fileID: 0}
   IsDraggable: 0
 --- !u!225 &1773139429
 CanvasGroup:
@@ -2858,7 +2910,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2071446986
 GameObject:

@@ -50,6 +50,8 @@ public class CardController : MonoBehaviour
 
         if (Card.HasAbility)
             Ability.OnCast();
+
+        UIController.Instance.UpdateHPAndMana();
     }
 
     public void OnTakeDamage(CardController attacker = null)
