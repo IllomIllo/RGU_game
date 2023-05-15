@@ -11,7 +11,7 @@ public class UIController : MonoBehaviour
     public TextMeshProUGUI PlayerMana, EnemyMana;
     public TextMeshProUGUI PlayerHP, EnemyHP;
 
-    public GameObject ResultGO;
+    public GameObject ResultGO, SadDog, textnepoints;
     public TextMeshProUGUI ResultTxt;
 
     public TextMeshProUGUI TurnTime;
@@ -52,10 +52,15 @@ public class UIController : MonoBehaviour
         ResultGO.SetActive(true);
 
         if (GameManagerScr.Instance.CurrentGame.Enemy.HP == 0)
+        {
             ResultTxt.text = "WIN";
+            textnepoints.SetActive(false);
+            SadDog.SetActive(false);
+        }
         else
-            ResultTxt.text = "Отчислен";
-        
+        {
+            ResultTxt.text = "-25";
+        }
        
 
 
