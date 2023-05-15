@@ -181,6 +181,7 @@ public class GameManagerScr : MonoBehaviour
         }
     }
 
+
     public void ChangeTurn()
     {
         StopAllCoroutines();

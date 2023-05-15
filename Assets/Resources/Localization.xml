@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Keys xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Key Name="Test_Key">
+		<Translates>
+			<en-us>Simple text</en-us>
+			<ru>Простой текст</ru>
+			<ua>Простий текст</ua>
+		</Translates>
+	</Key>
+	<Key Name="Test2_Key">
+		<Translates>
+			<en-us>Update text</en-us>
+			<ru>Обновлённый текст</ru>
+			<ua>Оновлений текст</ua>
+		</Translates>
+	</Key>
+	<Key Name="Play_Key">
+		<Translates>
+			<en-us>Play</en-us>
+			<ru>Играть</ru>
+			<ua>Грати</ua>
+		</Translates>
+	</Key>
+	<Key Name="Settings_Key">
+		<Translates>
+			<en-us>Settings</en-us>
+			<ru>Настройки</ru>
+			<ua>Настройка</ua>
+		</Translates>
+	</Key>
+	<Key Name="Exit_Key">
+		<Translates>
+			<en-us>Exit</en-us>
+			<ru>Выход</ru>
+			<ua>Вихід</ua>
+		</Translates>
+	</Key>
+	<Key Name="MainMenu_Key">
+		<Translates>
+			<en-us>Main Menu</en-us>
+			<ru>Главное меню</ru>
+			<ua>Головне меню</ua>
+		</Translates>
+	</Key>
+	<Key Name="EndTheTurn_Key">
+		<Translates>
+			<en-us>End The Turn</en-us>
+			<ru>Закончить ход</ru>
+			<ua>Закінчити хід</ua>
+		</Translates>
+	</Key>
+	<Key Name="Win_Key">
+		<Translates>
+			<en-us>You Win</en-us>
+			<ru>Победа</ru>
+			<ua>Перемога</ua>
+		</Translates>
+	</Key>
+	<Key Name="Deduct_Key">
+		<Translates>
+			<en-us>Deduct</en-us>
+			<ru>Отчислен</ru>
+			<ua>Відрахований</ua>
+		</Translates>
+	</Key>
+	<Key Name="Audio_Key">
+		<Translates>
+			<en-us>Audio</en-us>
+			<ru>Общая громкость</ru>
+			<ua>Загальна гучність</ua>
+		</Translates>
+	</Key>
+	<Key Name="FullScreen_Key">
+		<Translates>
+			<en-us>Full Screen</en-us>
+			<ru>Полный экран</ru>
+			<ua>Повний екран</ua>
+		</Translates>
+	</Key>
+</Keys>
