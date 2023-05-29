@@ -90,11 +90,12 @@ public class CardManagerScr : MonoBehaviour
     // список карт
     public void Awake()
     {
+        //CardManager.AllCards.Add(new Card("LD", "Sprites/Cards/LD", 35, 40, 1)); //карта победы
         CardManager.AllCards.Add(new Card("LD","Sprites/Cards/LD", 5, 4, 3));
         CardManager.AllCards.Add(new Card("Brother","Sprites/Cards/Brother", 5, 5, 3));
         CardManager.AllCards.Add(new Card("Decan","Sprites/Cards/Decan", 9, 5, 7));
         CardManager.AllCards.Add(new Card("Otlichnik","Sprites/Cards/Otlichnik", 1, 5, 2));
-        CardManager.AllCards.Add(new Card("Starosta","Sprites/Cards/Starosta", 2, 14, 5));
+        CardManager.AllCards.Add(new Card("Starosta","Sprites/Cards/Starosta", 2, 14, 5, Card.AbilityType.PROVACATION));
         CardManager.AllCards.Add(new Card("Starshecursnik","Sprites/Cards/Starshecursnik", 1, 1, 1));
         CardManager.AllCards.Add(new Card("Laborant","Sprites/Cards/Laborant", 2, 4, 2));
 
@@ -103,7 +104,7 @@ public class CardManagerScr : MonoBehaviour
         CardManager.AllCards.Add(new Card("doubleAttack", "Sprites/Cards/DB_Attack", 3, 8, 7, Card.AbilityType.DOUBLE_ATTACK));
         CardManager.AllCards.Add(new Card("instantActive", "Sprites/Cards/I_Active", 2, 4, 3, Card.AbilityType.INSTANT_ACTIVE));
         CardManager.AllCards.Add(new Card("Shield", "Sprites/Cards/Shield_Have", 6, 2, 5, Card.AbilityType.SHIELD));
-        CardManager.AllCards.Add(new Card("counterAttack", "Sprites/Cards/Counter_Attack", 4, 6, 2, Card.AbilityType.COUNTER_ATTACK));
+        CardManager.AllCards.Add(new Card("counterAttack", "Sprites/Cards/Counter_Attack", 4, 6, 2, Card.AbilityType.COUNTER_ATTACK)); 
         
 
 

@@ -31,7 +31,7 @@ public class CardMovementScr : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         IsDraggable = GameManagerScr.Instance.IsPlayerTurn &&
                       (
                       (DefaultParent.GetComponent<DropPlaceScr>().Type == FieldType.SELF_HAND &&
-                      GameManagerScr.Instance.PlayerMana >= CC.Card.Manacost) ||
+                      GameManagerScr.Instance.CurrentGame.Player.Mana >= CC.Card.Manacost) ||
                       (DefaultParent.GetComponent<DropPlaceScr>().Type == FieldType.SELF_FIELD &&
                       CC.Card.CanAttack)
                       );
